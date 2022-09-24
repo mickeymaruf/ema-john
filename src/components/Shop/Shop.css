@@ -1,0 +1,17 @@
+.shop{
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+}
+
+.products-wrapper{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 45px;
+    row-gap: 35px;
+    padding: 100px 80px;
+}
+
+.cart-wrapper{
+    background-color: #1c2b35;
+    color: white;
+}
