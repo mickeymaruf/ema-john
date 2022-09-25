@@ -13,9 +13,11 @@ const Shop = () => {
     }, [])
 
     const [cart, setCart] = useState([]);
-    const addToCart = (id) => {
-        const cartProduct =  products.find(product => product.id === id);
-        setCart(cartProduct.name);
+    const addToCart = (product) => {
+        // const cartProduct =  products.find(product => product.id === id);
+        // setCart(cartProduct.name);
+        const newCart = [...cart, product.name];
+        setCart(newCart);
     }
 
     return (
@@ -30,7 +32,14 @@ const Shop = () => {
                 }
             </div>
             <div className="cart-wrapper">
-                {cart}
+                <h2>Order Summary</h2>
+                <div>
+                    <p>Selected Items: {cart.length}</p>
+                    <p>Total Price: $1140</p>
+                    <p>Total Shipping Charge: $5</p>
+                    <p>Tax: $114</p>
+                    <h3>Grand Total: $1559</h3>
+                </div>
             </div>
         </div>
     );

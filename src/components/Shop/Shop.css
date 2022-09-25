@@ -6,12 +6,23 @@
 .products-wrapper{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    column-gap: 45px;
-    row-gap: 35px;
-    padding: 100px 80px;
+    column-gap: 30px;
+    row-gap: 25px;
+    padding: 90px 75px;
 }
 
 .cart-wrapper{
-    background-color: #1c2b35;
-    color: white;
+    background: rgba(255, 153, 0, 0.3);
+    color: black;
+    /* min-height: calc(100vh - 80px); */
+    position: sticky;
+    right: 0;
+    padding: 0 25px;
+}
+
+.cart-wrapper h2{
+    text-align: center;
+    font-weight: normal;
+    margin-bottom: 50px;
+    margin-top: 30px;
 }
