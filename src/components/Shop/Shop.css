@@ -1,6 +1,7 @@
 .shop{
     display: grid;
     grid-template-columns: 4fr 1fr;
+    align-items: flex-start;
 }
 
 .products-wrapper{
@@ -12,11 +13,11 @@
 }
 
 .cart-wrapper{
-    background: rgba(255, 153, 0, 0.3);
+    background: #FFE0B3;
     color: black;
-    /* min-height: calc(100vh - 80px); */
+    min-height: 100vh;
     position: sticky;
-    right: 0;
+    top: 0;
     padding: 0 25px;
 }
 

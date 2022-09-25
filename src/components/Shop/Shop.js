@@ -14,11 +14,10 @@ const Shop = () => {
 
     const [cart, setCart] = useState([]);
     const addToCart = (product) => {
-        // const cartProduct =  products.find(product => product.id === id);
-        // setCart(cartProduct.name);
-        const newCart = [...cart, product.name];
+        const newCart = [...cart, product];
         setCart(newCart);
     }
+    const totalPrice = cart.reduce((prev, item) => item.price+prev, 0);
 
     return (
         <div className='shop'>
@@ -35,10 +34,10 @@ const Shop = () => {
                 <h2>Order Summary</h2>
                 <div>
                     <p>Selected Items: {cart.length}</p>
-                    <p>Total Price: $1140</p>
+                    <p>Total Price: ${totalPrice}</p>
                     <p>Total Shipping Charge: $5</p>
                     <p>Tax: $114</p>
-                    <h3>Grand Total: $1559</h3>
+                    <h3>Grand Total: ${totalPrice}</h3>
                 </div>
             </div>
         </div>
