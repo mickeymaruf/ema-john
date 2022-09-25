@@ -3,22 +3,35 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
-import './Shop.css'
+import './Shop.css';
+import { addToDb } from '../../utilities/fakedb';
 
 const Shop = () => {
     const [products, setProducts] = useState([]);
+    const [cart, setCart] = useState([]);
+
     useEffect(()=>{
         fetch('products.json')
             .then(res => res.json())
             .then(data => setProducts(data))
     }, [])
 
-    const [cart, setCart] = useState([]);
+    useEffect(()=>{
+        const storedCart = JSON.parse(localStorage.getItem('shopping-cart'));
+        // let newCartProduct = [];
+        for(const id in storedCart){
+            const addedProduct = products.find(product => product.id === id);
+            // newCartProduct.push(addedProduct);
+            console.log(addedProduct);
+        }
+        // setCart(newCartProduct)
+    }, [])
+
     const addToCart = (product) => {
         const newCart = [...cart, product];
         setCart(newCart);
+        addToDb(product.id);
     }
-    const totalPrice = cart.reduce((prev, item) => item.price+prev, 0);
 
     return (
         <div className='shop'>
@@ -34,7 +47,6 @@ const Shop = () => {
             <div className="cart-wrapper">
                 <Cart
                 cart={cart}
-                totalPrice={totalPrice}
                 ></Cart>
             </div>
         </div>
