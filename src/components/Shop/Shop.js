@@ -9,26 +9,41 @@ import { addToDb } from '../../utilities/fakedb';
 const Shop = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
-
+    
     useEffect(()=>{
         fetch('products.json')
-            .then(res => res.json())
-            .then(data => setProducts(data))
+        .then(res => res.json())
+        .then(data => setProducts(data))
+        
     }, [])
 
     useEffect(()=>{
         const storedCart = JSON.parse(localStorage.getItem('shopping-cart'));
-        // let newCartProduct = [];
+        const savedCart = [];
         for(const id in storedCart){
             const addedProduct = products.find(product => product.id === id);
-            // newCartProduct.push(addedProduct);
-            console.log(addedProduct);
+            if(addedProduct){
+                const quantity = storedCart[id];
+                addedProduct.quantity = quantity;
+                savedCart.push(addedProduct);
+            }
         }
-        // setCart(newCartProduct)
-    }, [])
+        setCart(savedCart)
+    }, [products])
+
+    console.log(products)
 
     const addToCart = (product) => {
-        const newCart = [...cart, product];
+        const isExistProduct = cart.find(p => p.id === product.id);
+        let newCart;
+        if(isExistProduct){
+            const rest = cart.filter(p => p.id !== isExistProduct.id);
+            isExistProduct.quantity++;
+            newCart = [...rest, isExistProduct];
+        } else {
+            product.quantity = 1;
+            newCart = [...cart, product];
+        }
         setCart(newCart);
         addToDb(product.id);
     }
