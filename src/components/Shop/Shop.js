@@ -31,8 +31,6 @@ const Shop = () => {
         setCart(savedCart)
     }, [products])
 
-    console.log(products)
-
     const addToCart = (product) => {
         const isExistProduct = cart.find(p => p.id === product.id);
         let newCart;
