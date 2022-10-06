@@ -3,17 +3,18 @@ import logo from '../../images/Logo.svg'
 import './Header.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
     return (
         <div>
             <nav className='navbar'>
-                <a href="/home"><img src={logo} alt="" /></a>
+                <Link to="/"><img src={logo} alt="" /></Link>
                 <ul id='nav-items' data-status="false" className="nav-items">
-                    <li><a href="/order">Order</a></li>
-                    <li><a href="/order-review">Order Review</a></li>
-                    <li><a href="/manage">Manage Inventory</a></li>
-                    <li><a href="/login">Login</a></li>
+                    <li><Link to="/">Shop</Link></li>
+                    <li><Link to="/orders">Order</Link></li>
+                    <li><Link to="/inventory">Manage Inventory</Link></li>
+                    <li><Link to="/login">Login</Link></li>
                 </ul>
                 <FontAwesomeIcon onClick={navToggle} icon={faBars} className='menu-icon' />
             </nav>
