@@ -25,13 +25,12 @@ const Header = () => {
 const navToggle = () => {
 
     const navItems = document.getElementById("nav-items");
-    if(navItems.getAttribute("data-status") == "false"){
+    if(navItems.getAttribute("data-status") === "false"){
         navItems.style.display = 'block';
         navItems.setAttribute("data-status", "true");
     } else{
         navItems.style.display = 'none';
         navItems.setAttribute("data-status", "false");
-        console.log('closed')
     }
 }
 

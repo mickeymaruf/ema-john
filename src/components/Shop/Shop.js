@@ -5,36 +5,20 @@ import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import './Shop.css';
 import { addToDb } from '../../utilities/fakedb';
+import { useLoaderData } from 'react-router-dom';
 
 const Shop = () => {
-    const [products, setProducts] = useState([]);
+    const { products, cartProducts } = useLoaderData();
     const [cart, setCart] = useState([]);
-    
-    useEffect(()=>{
-        fetch('products.json')
-        .then(res => res.json())
-        .then(data => setProducts(data))
-        
-    }, [])
 
-    useEffect(()=>{
-        const storedCart = JSON.parse(localStorage.getItem('shopping-cart'));
-        const savedCart = [];
-        for(const id in storedCart){
-            const addedProduct = products.find(product => product.id === id);
-            if(addedProduct){
-                const quantity = storedCart[id];
-                addedProduct.quantity = quantity;
-                savedCart.push(addedProduct);
-            }
-        }
-        setCart(savedCart)
-    }, [products])
+    useEffect(() => {
+        setCart(cartProducts)
+    }, [products, cartProducts])
 
     const addToCart = (product) => {
         const isExistProduct = cart.find(p => p.id === product.id);
         let newCart;
-        if(isExistProduct){
+        if (isExistProduct) {
             const rest = cart.filter(p => p.id !== isExistProduct.id);
             isExistProduct.quantity++;
             newCart = [...rest, isExistProduct];
@@ -59,7 +43,7 @@ const Shop = () => {
             </div>
             <div className="cart-wrapper">
                 <Cart
-                cart={cart}
+                    cart={cart}
                 ></Cart>
             </div>
         </div>
