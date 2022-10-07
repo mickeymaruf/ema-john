@@ -11,10 +11,7 @@ export default async function productsAndCartLoaders() {
     cartProducts.forEach(p => p.quantity = storedCart[p.id]);
 
     // { below code could be here, works as same as above one }
-
-    console.log(products);
-    console.log(cartProducts);
-
+    
     return { products, cartProducts };
 }
 
