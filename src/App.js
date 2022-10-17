@@ -7,17 +7,21 @@ import Inventory from './components/Inventory/Inventory';
 import productsAndCartLoaders from './loaders/productsAndCartLoaders';
 import Login from './components/Login/Login';
 import Signup from './components/Signup/Signup';
+import NotFound from './components/NotFound/NotFound';
 
 function App() {
   const router = createBrowserRouter([
-    {path: '/', element: <Main />, children: [
-      {path: '/', element: <Shop />, loader: productsAndCartLoaders},
-      {path: 'shop', element: <Shop />, loader: productsAndCartLoaders},
-      {path: 'orders', element: <Orders />, loader: productsAndCartLoaders},
-      {path: 'inventory', element: <Inventory />},
-      {path: 'login', element: <Login />},
-      {path: 'signup', element: <Signup />},
-    ]}
+    {
+      path: '/', element: <Main />, children: [
+        { path: '/', element: <Shop />, loader: productsAndCartLoaders },
+        { path: 'shop', element: <Shop />, loader: productsAndCartLoaders },
+        { path: 'orders', element: <Orders />, loader: productsAndCartLoaders },
+        { path: 'inventory', element: <Inventory /> },
+        { path: 'login', element: <Login /> },
+        { path: 'signup', element: <Signup /> },
+      ],
+      errorElement: <NotFound />
+    },
   ]);
   return (
     <div className="App">

@@ -1,18 +1,23 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/UserContext';
 import './Login.css';
 
 const Login = () => {
     const { loginWithEmail } = useContext(AuthContext);
+    const [error, setError] = useState(null);
     const handleLogin = (e) => {
         e.preventDefault();
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
+        if (!email || !password) {
+            setError('Field can\'t be empty!');
+            return;
+        }
         loginWithEmail(email, password)
             .then(userCredential => {
-                // 
+                
             })
             .catch(error => {
                 console.log(error);
@@ -34,7 +39,7 @@ const Login = () => {
                     <input className='form-btn submit-btn' type="submit" value="Login" />
                 </div>
                 <p className='form-info'>
-                    New to Ema-john? <Link style={{ color: "#FF9900" }} to='/signup'>Create New Account</Link>
+                    New to Ema-john? <Link className='login-link' to='/signup'>Create New Account</Link>
                 </p>
                 <div className='or'>
                     <div className='or-border'></div>
@@ -44,6 +49,9 @@ const Login = () => {
                 <div>
                     <button className='form-btn' type="submit"><img className='google-icon' src="https://img.icons8.com/color/48/000000/google-logo.png" alt='' /> Continue with Google</button>
                 </div>
+                {
+                    error && <p className='error'>{error}</p>
+                }
             </form>
         </div>
     );

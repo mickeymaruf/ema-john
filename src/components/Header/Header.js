@@ -28,7 +28,7 @@ const Header = () => {
                         user.email ?
                             <li onClick={handleLogout}>Logout</li>
                             :
-                            <li><NavLink style={isActive} to="/login">Login</NavLink></li>
+                            <li><NavLink to="/login">Login</NavLink></li>
                     }
                 </ul>
                 <FontAwesomeIcon onClick={navToggle} icon={faBars} className='menu-icon' />

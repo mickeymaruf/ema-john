@@ -8,7 +8,7 @@ export const AuthContext = createContext();
 const UserContext = ({ children }) => {
     const [user, setUser] = useState({});
     const loginWithEmail = (email, password) => signInWithEmailAndPassword(auth, email, password)
-    const signUpWithEmail = (email, password) => createUserWithEmailAndPassword(auth, email, password);
+    const createUser = (email, password) => createUserWithEmailAndPassword(auth, email, password);
     const logOut = () => signOut(auth);
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, user => {
@@ -22,7 +22,7 @@ const UserContext = ({ children }) => {
         }
     }, [])
     return (
-        <AuthContext.Provider value={{ user, loginWithEmail, signUpWithEmail, logOut }}>
+        <AuthContext.Provider value={{ user, loginWithEmail, createUser, logOut }}>
             {children}
         </AuthContext.Provider>
     );
