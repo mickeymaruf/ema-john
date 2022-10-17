@@ -1,12 +1,27 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/UserContext';
 import './Login.css';
 
 const Login = () => {
+    const { loginWithEmail } = useContext(AuthContext);
+    const handleLogin = (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        loginWithEmail(email, password)
+            .then(userCredential => {
+                // 
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
     return (
         <div className='form-container'>
             <h2 className='form-title'>Login</h2>
-            <form>
+            <form onSubmit={handleLogin}>
                 <div className='form-control'>
                     <label htmlFor="email">Email:</label>
                     <input type="email" id="email" name="email" />
@@ -19,7 +34,7 @@ const Login = () => {
                     <input className='form-btn submit-btn' type="submit" value="Login" />
                 </div>
                 <p className='form-info'>
-                    New to Ema-john? <Link style={{color: "#FF9900"}} to='/signup'>Create New Account</Link>
+                    New to Ema-john? <Link style={{ color: "#FF9900" }} to='/signup'>Create New Account</Link>
                 </p>
                 <div className='or'>
                     <div className='or-border'></div>

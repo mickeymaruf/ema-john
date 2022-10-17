@@ -1,12 +1,38 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/UserContext';
 import './Signup.css';
 
 const Signup = () => {
+    const { signUpWithEmail } = useContext(AuthContext);
+    const handleSignup = (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        const confirmPassword = form.confirmPassword.value;
+        if (password !== confirmPassword) {
+            console.log('password didn\'t match');
+            return;
+        }
+        signUpWithEmail(email, password)
+            .then(userCredential => {
+                userCredential.user.displayName = name;
+                console.log(userCredential.user);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
     return (
         <div className='form-container'>
             <h2 className='form-title'>Sign Up</h2>
-            <form>
+            <form onSubmit={handleSignup}>
+                <div className='form-control'>
+                    <label htmlFor="name">Name:</label>
+                    <input type="text" id="name" name="name" />
+                </div>
                 <div className='form-control'>
                     <label htmlFor="email">Email:</label>
                     <input type="email" id="email" name="email" />
@@ -16,8 +42,8 @@ const Signup = () => {
                     <input type="password" id="password" name="password" />
                 </div>
                 <div className='form-control'>
-                    <label htmlFor="confirm_password">Confirm Password:</label>
-                    <input type="confirm_password" id="confirm_password" name="confirm_password" />
+                    <label htmlFor="confirmPassword">Confirm Password:</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" />
                 </div>
                 <div className='mt-3'>
                     <input className='form-btn submit-btn' type="submit" value="Sign Up" />
