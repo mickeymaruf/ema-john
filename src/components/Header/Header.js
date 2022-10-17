@@ -3,7 +3,9 @@ import logo from '../../images/Logo.svg'
 import './Header.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+
+const isActive = ({isActive}) => isActive ? {color: 'orange'} : undefined;
 
 const Header = () => {
     return (
@@ -11,10 +13,10 @@ const Header = () => {
             <nav className='navbar'>
                 <Link to="/"><img src={logo} alt="" /></Link>
                 <ul id='nav-items' data-status="false" className="nav-items">
-                    <li><Link to="/">Shop</Link></li>
-                    <li><Link to="/orders">Order</Link></li>
-                    <li><Link to="/inventory">Manage Inventory</Link></li>
-                    <li><Link to="/login">Login</Link></li>
+                    <li><NavLink style={isActive} to="/shop">Shop</NavLink></li>
+                    <li><NavLink style={isActive} to="/orders">Orders</NavLink></li>
+                    <li><NavLink style={isActive} to="/inventory">Manage Inventory</NavLink></li>
+                    <li><NavLink style={isActive} to="/login">Login</NavLink></li>
                 </ul>
                 <FontAwesomeIcon onClick={navToggle} icon={faBars} className='menu-icon' />
             </nav>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import Cart from '../Cart/Cart';
 import OrderProduct from '../OrderProduct/OrderProduct';
 import './Orders.css';
@@ -26,9 +26,12 @@ const Orders = () => {
                     ></OrderProduct>
                     )
                 }
+                {
+                    cart.length === 0 && <h2>No Item's found in Orders. Please <Link to='/shop'>Continue Shopping</Link>.</h2>
+                }
             </div>
             <div className="cart-wrapper order-cart-wrapper">
-                <Cart cart={cart} />
+                <Cart cart={cart} setCart={setCart} />
             </div>
         </div>
     );

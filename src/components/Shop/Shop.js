@@ -13,7 +13,7 @@ const Shop = () => {
 
     useEffect(() => {
         setCart(cartProducts)
-    }, [products, cartProducts])
+    }, [products, cartProducts]);
 
     const addToCart = (product) => {
         const isExistProduct = cart.find(p => p.id === product.id);
@@ -44,6 +44,7 @@ const Shop = () => {
             <div className="cart-wrapper">
                 <Cart
                     cart={cart}
+                    setCart={setCart}
                 ></Cart>
             </div>
         </div>
