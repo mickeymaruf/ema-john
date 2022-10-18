@@ -4,6 +4,8 @@ import Cart from '../Cart/Cart';
 import OrderProduct from '../OrderProduct/OrderProduct';
 import './Orders.css';
 import { removeFromDb } from '../../utilities/fakedb';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 const Orders = () => {
     const { cartProducts } = useLoaderData();
@@ -31,7 +33,11 @@ const Orders = () => {
                 }
             </div>
             <div className="cart-wrapper order-cart-wrapper">
-                <Cart cart={cart} setCart={setCart} />
+                <Cart cart={cart} setCart={setCart}>
+                    <Link to="/shipping">
+                        <button className='btn review-order-btn'>Procced Shipping <FontAwesomeIcon icon={faArrowRight} /></button>
+                    </Link>
+                </Cart>
             </div>
         </div>
     );

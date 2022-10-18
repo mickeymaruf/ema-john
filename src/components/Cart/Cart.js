@@ -1,11 +1,10 @@
-import { faArrowRight, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { deleteShoppingCart } from '../../utilities/fakedb';
 import './Cart.css'
 
-const Cart = ({ cart, setCart }) => {
+const Cart = ({ cart, setCart, children }) => {
     let quantity = 0;
     let totalPrice = 0;
     let shipping = 0;
@@ -17,7 +16,6 @@ const Cart = ({ cart, setCart }) => {
     const tax = parseFloat(((totalPrice / 100) * 10).toFixed(2));
     const grandTotal = totalPrice + shipping + tax;
 
-    const navigate = useNavigate();
     return (
         <div>
             <h2>Order Summary</h2>
@@ -34,7 +32,7 @@ const Cart = ({ cart, setCart }) => {
                     deleteShoppingCart();
                 }}
                 className='btn clear-cart-btn'>Clear Cart <FontAwesomeIcon icon={faTrashCan} /></button>
-                <button onClick={() => navigate('/orders')} className='btn review-order-btn'>Review Order <FontAwesomeIcon icon={faArrowRight} /></button>
+                {children}
             </div>
         </div>
     );

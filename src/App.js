@@ -8,6 +8,8 @@ import productsAndCartLoaders from './loaders/productsAndCartLoaders';
 import Login from './components/Login/Login';
 import Signup from './components/Signup/Signup';
 import NotFound from './components/NotFound/NotFound';
+import Shipping from './components/Shipping/Shipping';
+import PrivateRoute from './routes/PrivateRoute';
 
 function App() {
   const router = createBrowserRouter([
@@ -16,9 +18,10 @@ function App() {
         { path: '/', element: <Shop />, loader: productsAndCartLoaders },
         { path: 'shop', element: <Shop />, loader: productsAndCartLoaders },
         { path: 'orders', element: <Orders />, loader: productsAndCartLoaders },
-        { path: 'inventory', element: <Inventory /> },
+        { path: 'inventory', element: <PrivateRoute><Inventory /></PrivateRoute> },
         { path: 'login', element: <Login /> },
         { path: 'signup', element: <Signup /> },
+        { path: 'shipping', element: <PrivateRoute><Shipping /></PrivateRoute> },
       ],
       errorElement: <NotFound />
     },

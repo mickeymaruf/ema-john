@@ -1,3 +1,5 @@
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -5,7 +7,7 @@ import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import './Shop.css';
 import { addToDb } from '../../utilities/fakedb';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 
 const Shop = () => {
     const { products, cartProducts } = useLoaderData();
@@ -42,10 +44,11 @@ const Shop = () => {
                 }
             </div>
             <div className="cart-wrapper">
-                <Cart
-                    cart={cart}
-                    setCart={setCart}
-                ></Cart>
+                <Cart cart={cart} setCart={setCart}>
+                    <Link to="/orders">
+                        <button className='btn review-order-btn'>Review Order <FontAwesomeIcon icon={faArrowRight} /></button>
+                    </Link>
+                </Cart>
             </div>
         </div>
     );
