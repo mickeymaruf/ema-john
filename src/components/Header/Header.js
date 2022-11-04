@@ -10,6 +10,14 @@ const isActive = ({ isActive }) => isActive ? { color: 'orange' } : undefined;
 
 const Header = () => {
     const { user, logOut } = useContext(AuthContext);
+    const handleSignOut = () => {
+        logOut()
+            .then(() => {
+                // Sign-out successful.
+            }).catch((error) => {
+                // An error happened.
+            });
+    }
     return (
         <div>
             <nav className='navbar'>
@@ -19,8 +27,8 @@ const Header = () => {
                     <li><NavLink style={isActive} to="/orders">Orders</NavLink></li>
                     <li><NavLink style={isActive} to="/inventory">Manage Inventory</NavLink></li>
                     {
-                        user.uid ?
-                            <li onClick={logOut}>Logout</li>
+                        user && user.uid ?
+                            <li onClick={handleSignOut}>Logout</li>
                             :
                             <li><NavLink to="/login">Login</NavLink></li>
                     }
