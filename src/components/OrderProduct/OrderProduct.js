@@ -4,7 +4,7 @@ import React from 'react';
 import './OrderProduct.css'
 
 const OrderProduct = ({ product, removeCartProduct }) => {
-    const {id, name, img, price, quantity} = product;
+    const {_id, name, img, price, quantity} = product;
     return (
         <div className='ordered-product'>
             <img src={img} alt="" />
@@ -15,7 +15,7 @@ const OrderProduct = ({ product, removeCartProduct }) => {
                     Quantity : {quantity}
                 </small>
             </div>
-            <button onClick={() => removeCartProduct(id)} className='order-product-remove-btn'><FontAwesomeIcon icon={faTrashCan} /></button>
+            <button onClick={() => removeCartProduct(_id)} className='order-product-remove-btn'><FontAwesomeIcon icon={faTrashCan} /></button>
         </div>
     )
 }

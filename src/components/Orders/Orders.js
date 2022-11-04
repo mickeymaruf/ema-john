@@ -1,17 +1,35 @@
 import React, { useState } from 'react';
-import { Link, useLoaderData } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Cart from '../Cart/Cart';
 import OrderProduct from '../OrderProduct/OrderProduct';
 import './Orders.css';
-import { removeFromDb } from '../../utilities/fakedb';
+import { getStoredCart, removeFromDb } from '../../utilities/fakedb';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { useEffect } from 'react';
+import getStoredCartProducts from '../../utilities/getStoredCartProducts';
 
 const Orders = () => {
-    const { cartProducts } = useLoaderData();
-    const [cart, setCart] = useState(cartProducts);
+    const [cart, setCart] = useState([]);
+
+    useEffect(() => {
+        const storedCart = getStoredCart();
+        const ids = Object.keys(storedCart);
+        fetch('http://localhost:5000/productsByIds', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(ids)
+        })
+            .then(res => res.json())
+            .then(data => {
+                setCart(getStoredCartProducts(data));
+            })
+    }, [])
+
     const removeCartProduct = (id) => {
-        const restCartProducts = cart.filter(product => product.id !== id);
+        const restCartProducts = cart.filter(product => product._id !== id);
         setCart(restCartProducts);
         // 
         removeFromDb(id);
@@ -22,7 +40,7 @@ const Orders = () => {
             <div className='order-products-wrapper'>
                 {
                     cart.map(product => <OrderProduct
-                        key={product.id}
+                        key={product._id}
                         product={product}
                         removeCartProduct={removeCartProduct}
                     ></OrderProduct>
